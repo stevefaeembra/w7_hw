@@ -103,7 +103,7 @@ Models and Views
     - when received, populate pulldown
 
 **[View] PostcodeSelectView**
-- incidentType [pulldown #incident-type]
+- incidentType [text #postcode]
   - on submit, publish to **PostcodeSelectView:submit_postcode**
 
 **[Model] PostcodeAPIModel**
