@@ -96,11 +96,11 @@ _____
 Models and Views
 ================
 
-**[View] IncidentTypeSelectView** 
+**[View] IncidentTypeSelectView**
 - incidentType [pulldown #incident-type]
   - on select, publish to **IncidentTypeSelectView:change_postcode**
-  - subscribe to **PoliceApiModel:got-categories**
-    - when received, populate pulldown
+  - subscribe to **PoliceApiModel:got-categories** [DONE]
+    - when received, populate pulldown [DONE]
 
 **[View] PostcodeSelectView**
 - incidentType [text #postcode]
