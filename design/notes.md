@@ -102,9 +102,9 @@ Models and Views
   - subscribe to **PoliceApiModel:got-categories** [DONE]
     - when received, populate pulldown [DONE]
 
-**[View] PostcodeSelectView**
+**[View] PostcodeSelectView** [DONE]
 - postcode [text #postcode]
-  - on submit, publish to **PostcodeSelectView:submit_postcode**
+  - on submit, publish to **PostcodeSelectView:submit_postcode** [DONE]
 
 **[Model] PostcodeAPIModel**
 - converts a postcode to a location
