@@ -10,18 +10,24 @@ IncidentTypeSelectView.prototype.populatePullDown = function(categoryList) {
   categoryList.forEach((categoryName) => {
     const option = document.createElement("option");
     option.textContent = categoryName;
-    option.setAttribute('value', option);
+    option.setAttribute('value', categoryName);
     this.element.appendChild(option);
   });
 };
 
 IncidentTypeSelectView.prototype.bindEvents = function () {
-  // when w have a list of categories, populate the pulldown
+  // when we have a list of categories, populate the pulldown
   PubSub.subscribe("PoliceApiModel:have_categories", (event) => {
     PubSub.signForDelivery(this,event);
     const categoryList = event.detail;
     this.populatePullDown(categoryList);
   });
+  // when user changes value, publish it.
+  this.element.addEventListener("change", (event) => {
+    const value = event.target.value;
+    console.dir(`user selected $(value)`);
+    PubSub.publish("IncidentTypeSelectView:change_category",value);
+  })
 };
 
 module.exports = IncidentTypeSelectView;

@@ -96,14 +96,14 @@ _____
 Models and Views
 ================
 
-**[View] IncidentTypeSelectView**
+**[View] IncidentTypeSelectView** [DONE]
 - incidentType [pulldown #incident-type]
-  - on select, publish to **IncidentTypeSelectView:change_postcode**
+  - on select, publish to **IncidentTypeSelectView:change_category** [DONE]
   - subscribe to **PoliceApiModel:got-categories** [DONE]
     - when received, populate pulldown [DONE]
 
 **[View] PostcodeSelectView**
-- incidentType [text #postcode]
+- postcode [text #postcode]
   - on submit, publish to **PostcodeSelectView:submit_postcode**
 
 **[Model] PostcodeAPIModel**
@@ -131,12 +131,18 @@ Models and Views
   - publish to **PoliceApiModel:have_neighbourhood**
 - **findBoundary(neighbourhood)**
   - publish to **PoliceApiModel:have_boundary**
-- **findIncidents(boundary, timeperiod)**
+- **findIncidents(boundary, timeperiod, category)**
   - publish to **PoliceApiModel:have_incidents**
 - subscribes to **PostcodeAPIModel:got_postcode_location**
   - call findNeighbourHood(location)
   - call findBoundary(neighbourhood)
-  - call findIncidents(boundary, timePeriod)
+  - call findIncidents(boundary, timePeriod, category)
+- subscribes to **IncidentTypeSelectView:change_category**
+  - call findNeighbourHood(location)
+  - call findBoundary(neighbourhood)
+  - call findIncidents(boundary, timePeriod, category)
+
+
 
 **[View] NeighbourhoodView**
 - Shows info on selected neighbourhood once this is known
