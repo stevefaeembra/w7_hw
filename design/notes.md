@@ -113,7 +113,7 @@ Models and Views
   - publish result to **PostcodeAPIModel:got_postcode_location**
 
 **[Model] PoliceApiModel**
-- crimeCategories : list of viable types
+- categories : list of viable types
   - look up with API
   - publish to **PoliceApiModel:got-categories**
 - neighbourhood
@@ -125,6 +125,8 @@ Models and Views
   - month
 - incidents
   - [ incident ]
+- **findCategories**
+  - publish to **PoliceApiModel:have_categories**
 - **findNeighbourHood(location)**
   - publish to **PoliceApiModel:have_neighbourhood**
 - **findBoundary(neighbourhood)**

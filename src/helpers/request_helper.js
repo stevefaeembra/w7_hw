@@ -4,7 +4,8 @@ const RequestHelper = function (url) {
 
 RequestHelper.prototype.get = function (onComplete) {
   return fetch(this.url)
-    .then(response => response.json());
+    .then(response => response.json())
+    .catch(err => console.log(err));
 };
 
 module.exports = RequestHelper;
