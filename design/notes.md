@@ -96,7 +96,7 @@ _____
 Models and Views
 ================
 
-**[View] IncidentTypeSelectView**
+**[View] IncidentTypeSelectView** 
 - incidentType [pulldown #incident-type]
   - on select, publish to **IncidentTypeSelectView:change_postcode**
   - subscribe to **PoliceApiModel:got-categories**
@@ -113,9 +113,9 @@ Models and Views
   - publish result to **PostcodeAPIModel:got_postcode_location**
 
 **[Model] PoliceApiModel**
-- categories : list of viable types
-  - look up with API
-  - publish to **PoliceApiModel:got-categories**
+- categories : list of viable types [DONE]
+  - look up with API [DONE]
+  - publish to **PoliceApiModel:have_categories** [DONE]
 - neighbourhood
   - force
   - name
@@ -126,7 +126,7 @@ Models and Views
 - incidents
   - [ incident ]
 - **findCategories**
-  - publish to **PoliceApiModel:have_categories**
+  - publish to **PoliceApiModel:have_categories** [DONE]
 - **findNeighbourHood(location)**
   - publish to **PoliceApiModel:have_neighbourhood**
 - **findBoundary(neighbourhood)**

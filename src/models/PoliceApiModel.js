@@ -32,7 +32,7 @@ PoliceApiModel.prototype.bindEvents = function () {
   //
   this.findCategories().then(
     (categories) => {
-      console.dir(categories);
+      PubSub.publish("PoliceApiModel:have_categories",categories);
     }
   );
 
