@@ -109,8 +109,8 @@ Models and Views
 **[Model] PostcodeAPIModel**
 - converts a postcode to a location
 - subscribe to **PostcodeSelectView:submit_postcode**
-  - look up on API
-  - publish result to **PostcodeAPIModel:got_postcode_location**
+  - look up on API [DONE]
+  - publish result to **PostcodeAPIModel:got_postcode_location** [DONE]
 
 **[Model] PoliceApiModel**
 - categories : list of viable types [DONE]

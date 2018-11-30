@@ -25,7 +25,6 @@ IncidentTypeSelectView.prototype.bindEvents = function () {
   // when user changes value, publish it.
   this.element.addEventListener("change", (event) => {
     const value = event.target.value;
-    console.dir(`user selected $(value)`);
     PubSub.publish("IncidentTypeSelectView:change_category",value);
   })
 };
