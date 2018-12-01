@@ -6,6 +6,7 @@ const PoliceApiModel = function () {
     "categories": [],     // list of categories
     "incidents": [],      // list of incidents
     "neighbourhood": {},  // current neighbourhood
+    "boundary": [],       // list of points on boundary
     "timePeriod": {       // time period (year/month)
       year: 2017,
       month: 7
@@ -34,21 +35,42 @@ PoliceApiModel.prototype.findNeighbourHood = function (location) {
     console.log("In the findNeighbourHood");
     const req= new RequestHelper(`https://data.police.uk/api/locate-neighbourhood?q=${location.latitude},${location.longitude}`);
     req.get().then((data) => {
-      this.neighbourhood = data;
+      this.data.neighbourhood = data;
       PubSub.publish("PoliceApiModel:have_neighbourhood", data);
     });
+};
+
+PoliceApiModel.prototype.findBoundary = function () {
+  // given we have the force name and neighbourhood name,
+  // finds the boundary. this is an array of lat,lon pairs.
+  console.dir(this.data);
+  const neighbourhoodId = this.data.neighbourhood.neighbourhood;
+  const forceName = this.data.neighbourhood.force;
+  const url = `https://data.police.uk/api/${forceName}/${neighbourhoodId}/boundary`;
+  const req = new RequestHelper(url);
+  // this may take a while so return a promise
+  return new Promise( (resolve, reject) => {
+    req.get().then((info) => {
+      this.data.boundary = info;
+      console.dir("got boundary!");
+      PubSub.publish("PoliceApiModel:have_boundary", this.data.boundary);
+      Promise.resolve(info);
+    });
+  });
 };
 
 PoliceApiModel.prototype.bindEvents = function () {
 
   // get categories, then publish list
+
   this.findCategories().then(
     (categories) => {
       PubSub.publish("PoliceApiModel:have_categories",categories);
     }
   );
 
-  // when postcode changes, find the new location
+  // when postcode changes, find the new location and boundary
+
   PubSub.subscribe("PostcodeAPIModel:got_postcode_location", (location) => {
     PubSub.signForDelivery(this,event);
     const latitude = event.detail['latitude'];
@@ -56,10 +78,17 @@ PoliceApiModel.prototype.bindEvents = function () {
     this.findNeighbourHood({
       "latitude": latitude,
       "longitude": longitude
-    })
+    });
+  });
+
+  // when we have a neighbourhood, we can fetch a boundary
+  PubSub.subscribe("PoliceApiModel:have_neighbourhood", (event) => {
+    PubSub.signForDelivery(this,event);
+    this.findBoundary();
   });
 
   // when month changes, update the date info
+
   PubSub.subscribe("MonthInputView:month-changed", (event) => {
     PubSub.signForDelivery(this,event);
     const yearMonth = event.detail;
