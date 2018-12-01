@@ -125,12 +125,12 @@ Models and Views
   - month
 - incidents
   - [ incident ]
-- **findCategories**
+- **findCategories** [DONE]
   - publish to **PoliceApiModel:have_categories** [DONE]
-- **findNeighbourHood(location)**
+- **findNeighbourHood(location)** [DONE]
   - publish to **PoliceApiModel:have_neighbourhood** [DONE]
-- **findBoundary(neighbourhood)**
-  - publish to **PoliceApiModel:have_boundary**
+- **findBoundary(neighbourhood)** [DONE]
+  - publish to **PoliceApiModel:have_boundary** [DONE]
 - **findIncidents(boundary, timeperiod, category)**
   - publish to **PoliceApiModel:have_incidents**
 - subscribes to **PostcodeAPIModel:got_postcode_location**

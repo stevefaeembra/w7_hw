@@ -3,11 +3,12 @@ const RequestHelper = require("../helpers/request_helper.js");
 
 const PoliceApiModel = function () {
   this.data = {
-    "categories": [],     // list of categories
-    "incidents": [],      // list of incidents
-    "neighbourhood": {},  // current neighbourhood
-    "boundary": [],       // list of points on boundary
-    "timePeriod": {       // time period (year/month)
+    "categories": [],         // list of categories
+    "category" : "all-crimes",  // selected crime
+    "incidents": [],          // list of incidents
+    "neighbourhood": {},      // current neighbourhood
+    "boundary": [],           // list of points on boundary
+    "timePeriod": {           // time period (year/month)
       year: 2017,
       month: 7
     }
@@ -102,6 +103,24 @@ PoliceApiModel.prototype.bindEvents = function () {
     PubSub.signForDelivery(this,event);
     this.findBoundary();
   });
+
+  // when we have a boundary, we can fetch incidents
+
+  PubSub.subscribe("PoliceApiModel:have_boundary", (event) => {
+    PubSub.signForDelivery(this,event);
+    const category = this.data
+    const url = `https://data.police.uk/api/crimes-street/${category}?poly=${poly}&date=${month}`;
+
+  });
+
+  // when category changes, update current category
+
+  PubSub.subscribe("IncidentTypeSelectView:change_category", (event) => {
+    PubSub.signForDelivery(this, event);
+    const newCategory = event.detail;
+    this.data.category = newCategory;
+    console.dir(this.data);
+  })
 
   // when month changes, update the date info
 
