@@ -53,10 +53,25 @@ PoliceApiModel.prototype.findBoundary = function () {
     req.get().then((info) => {
       this.data.boundary = info;
       console.dir("got boundary!");
+      console.dir(this.getBoundaryWKT());
       PubSub.publish("PoliceApiModel:have_boundary", this.data.boundary);
       Promise.resolve(info);
     });
   });
+};
+
+
+PoliceApiModel.prototype.getBoundaryWKT = function () {
+  // for debugging. This returns WKT (well known text)
+  // format for the boundary. I can then paste this into QGIS
+  // to make sure it makes sense ;-)
+  let wkt = "LINESTRING(";
+  this.data.boundary.forEach((point) => {
+    wkt += `${point.longitude} ${point.latitude},`;
+  })
+  wkt = wkt.slice(0,wkt.length-1); // drop final comma
+  wkt += ")";
+  return wkt;
 };
 
 PoliceApiModel.prototype.bindEvents = function () {
@@ -82,6 +97,7 @@ PoliceApiModel.prototype.bindEvents = function () {
   });
 
   // when we have a neighbourhood, we can fetch a boundary
+
   PubSub.subscribe("PoliceApiModel:have_neighbourhood", (event) => {
     PubSub.signForDelivery(this,event);
     this.findBoundary();
