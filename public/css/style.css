@@ -20,6 +20,10 @@ form, #header {
   margin: 0 0 0.5rem 0;
 }
 
+header {
+  box-shadow: 0px 0px 14px rgba(0,0,0,.3);
+}
+
 label, #logo {
   flex: 1;
   margin-right: 1rem;
