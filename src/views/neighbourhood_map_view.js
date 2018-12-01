@@ -20,7 +20,17 @@ NeighbourhoodMapView.prototype.bindEvents = function () {
     var lat = location.latitude;
     var lon = location.longitude;
     this.map.setView([lat, lon], 13);
-  })
+  });
+  // got geojson for boundary
+  PubSub.subscribe("PoliceApiModel:got-geojson",(event) => {
+    debugger;
+    let boundary = event.detail;
+    L.geoJSON([boundary], {
+  		style: function (feature) {
+  			return feature.properties && feature.properties.style;
+  		}
+		}).addTo(this.map);
+	})
 };
 
 module.exports = NeighbourhoodMapView;

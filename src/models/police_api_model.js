@@ -76,7 +76,7 @@ PoliceApiModel.prototype.getBoundaryGeoJSON = function () {
       {
         "type": "Feature",
         "geometry": {
-          "type": "Line",
+          "type": "Polygon",
           "coordinates": [array]
         },
         "properties": {
@@ -85,7 +85,7 @@ PoliceApiModel.prototype.getBoundaryGeoJSON = function () {
     ]
   };
   console.dir(JSON.stringify(geoJson));
-  PubSub.publish("PoliceApiModel:got-geojson", JSON.stringify(geoJson));
+  PubSub.publish("PoliceApiModel:got-geojson",geoJson);
 };
 
 PoliceApiModel.prototype.getBoundaryWKT = function () {
