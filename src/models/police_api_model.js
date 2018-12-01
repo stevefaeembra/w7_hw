@@ -50,6 +50,8 @@ PoliceApiModel.prototype.findBoundary = function () {
   const url = `https://data.police.uk/api/${forceName}/${neighbourhoodId}/boundary`;
   const req = new RequestHelper(url);
   // this may take a while so return a promise
+  // but fire off a warning for incidents view to inject
+  // a spinner
   return new Promise( (resolve, reject) => {
     req.get().then((info) => {
       this.data.boundary = info;
@@ -109,6 +111,9 @@ PoliceApiModel.prototype.fetchIncidents = function (url) {
   // so fetch incidents .
   const req = new RequestHelper(url);
   // this may take a while so return a promise
+  // but also send a signal for the incidents view
+  // to add its spinner
+  PubSub.publish("PoliceApiModel:starting_lookup",{});
   return new Promise( (resolve, reject) => {
     req.get().then((info) => {
       this.data.incidents = info; // array of incidents
