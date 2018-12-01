@@ -20,8 +20,9 @@ NeighbourhoodView.prototype.render = function (neighbourhood) {
 NeighbourhoodView.prototype.bindEvents = function () {
   // when we have a new neighbourhood, update DOM
   PubSub.subscribe("PoliceApiModel:have_neighbourhood", (event) => {
+    PubSub.signForDelivery(this,event);
     this.render(event.detail);
-  })
+  });
 };
 
 module.exports = NeighbourhoodView;

@@ -128,7 +128,7 @@ Models and Views
 - **findCategories**
   - publish to **PoliceApiModel:have_categories** [DONE]
 - **findNeighbourHood(location)**
-  - publish to **PoliceApiModel:have_neighbourhood**
+  - publish to **PoliceApiModel:have_neighbourhood** [DONE]
 - **findBoundary(neighbourhood)**
   - publish to **PoliceApiModel:have_boundary**
 - **findIncidents(boundary, timeperiod, category)**
@@ -149,7 +149,7 @@ Models and Views
   - neighbourhoodName
   - boundary
 - subscribes to **PoliceApiModel:have_neighbourhood**
-  - re-renders
+  - re-renders [DONE]
 - subscribes to **PoliceApiModel:have_boundary**
   - re-renders
 
