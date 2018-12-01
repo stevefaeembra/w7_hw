@@ -20,6 +20,10 @@ IncidentsListView.prototype.bindEvents = function () {
     spinner.className = "fa fa-refresh fa-spin center";
     spinner.style="font-size:48px;color:red"
     this.element.appendChild(spinner);
+    const message = document.createElement("div");
+    message.className = "pleasewait";
+    message.textContent = "Looking up the database, this may take a few seconds."
+    this.element.appendChild(message);
   });
 
   // interested to know when incidents are ready
