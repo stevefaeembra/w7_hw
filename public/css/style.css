@@ -11,3 +11,10 @@ html {
 body {
   background-color: wheat;
 }
+
+.incident-card {
+  margin: 1rem 0;
+  padding: 1rem;
+  border-radius: 1rem;
+  border: 1px dotted black;
+}

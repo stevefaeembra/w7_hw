@@ -29,7 +29,18 @@ IncidentSummaryView.prototype.render = function (incident) {
   idCategory.textContent = category;
   card.appendChild(idCategory);
 
+  const idLocation = document.createElement("div");
+  idLocation.className = "incident-card--location";
+  idLocation.textContent = `Latitude ${lat}, Longitude ${lon}`;
+  card.appendChild(idLocation);
+
+  const idDescription = document.createElement("div");
+  idDescription.className = "incident-card--description";
+  idDescription.textContent = name;
+  card.appendChild(idDescription);
+
   return card;
+
 };
 
 module.exports = IncidentSummaryView;
