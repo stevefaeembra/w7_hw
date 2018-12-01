@@ -40,7 +40,11 @@ img {
   font-size: .8rem;
 }
 
-#neighbourhood, #coordinates, header {
+#map {
+  height: 400px;
+}
+
+#neighbourhood, #coordinates, #map, header {
   margin: 1rem;
   padding: 1rem;
   border-radius: 1rem;
