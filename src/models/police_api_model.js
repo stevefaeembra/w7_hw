@@ -107,7 +107,6 @@ PoliceApiModel.prototype.getPolyURL = function () {
 PoliceApiModel.prototype.fetchIncidents = function (url) {
   // we have a category, a boundary and a date
   // so fetch incidents .
-  debugger;
   const req = new RequestHelper(url);
   // this may take a while so return a promise
   return new Promise( (resolve, reject) => {
