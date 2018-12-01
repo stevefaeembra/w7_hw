@@ -13,9 +13,10 @@ CoordinatesView.prototype.bindEvents = function () {
 };
 
 CoordinatesView.prototype.renderLocation = function (location) {
+  this.element.innerHTML = '';
   const latLon = document.createElement("div");
   latLon.setAttribute("class","latlon");
-  latLon.textContent = `Latitude ${location.latitude} latitude ${location.longitude}`;
+  latLon.textContent = `Latitude ${location.latitude} Longitude ${location.longitude}`;
   this.element.appendChild(latLon);
 };
 
