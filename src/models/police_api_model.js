@@ -35,7 +35,15 @@ PoliceApiModel.prototype.bindEvents = function () {
       PubSub.publish("PoliceApiModel:have_categories",categories);
     }
   );
-
+  PubSub.subscribe("PostcodeAPIModel:got_postcode_location", (location) => {
+    PubSub.signForDelivery(this,event);
+    const latitude = event.detail['latitude'];
+    const longitude = event.detail['longitude'];
+    const req= new RequestHelper(`https://data.police.uk/api/locate-neighbourhood?q=${latitude},${longitude}`);
+    req.get().then((data) => {
+      console.log(data);
+    })
+  })
 };
 
 module.exports = PoliceApiModel;

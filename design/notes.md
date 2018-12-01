@@ -106,7 +106,7 @@ Models and Views
 - postcode [text #postcode]
   - on submit, publish to **PostcodeSelectView:submit_postcode** [DONE]
 
-**[Model] PostcodeAPIModel**
+**[Model] PostcodeAPIModel** [DONE]
 - converts a postcode to a location
 - subscribe to **PostcodeSelectView:submit_postcode**
   - look up on API [DONE]
