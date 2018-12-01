@@ -131,8 +131,8 @@ Models and Views
   - publish to **PoliceApiModel:have_neighbourhood** [DONE]
 - **findBoundary(neighbourhood)** [DONE]
   - publish to **PoliceApiModel:have_boundary** [DONE]
-- **findIncidents(boundary, timeperiod, category)**
-  - publish to **PoliceApiModel:have_incidents**
+- **findIncidents(boundary, timeperiod, category)** [DONE]
+  - publish to **PoliceApiModel:have_incidents** [DONE]
 - subscribes to **PostcodeAPIModel:got_postcode_location**
   - call findNeighbourHood(location) [DONE]
   - call findBoundary(neighbourhood)

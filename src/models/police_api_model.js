@@ -107,7 +107,17 @@ PoliceApiModel.prototype.getPolyURL = function () {
 PoliceApiModel.prototype.fetchIncidents = function (url) {
   // we have a category, a boundary and a date
   // so fetch incidents .
-
+  debugger;
+  const req = new RequestHelper(url);
+  // this may take a while so return a promise
+  return new Promise( (resolve, reject) => {
+    req.get().then((info) => {
+      this.data.incidents = info; // array of incidents
+      console.dir("got ${info.length} incidents");
+      PubSub.publish("PoliceApiModel:have_incidents", this.data.incidents);
+      Promise.resolve(info);
+    });
+  });
 };
 
 PoliceApiModel.prototype.bindEvents = function () {
@@ -147,7 +157,8 @@ PoliceApiModel.prototype.bindEvents = function () {
     const poly = this.getPolyURL();
     const date = `${this.data.timePeriod.year}-${this.data.timePeriod.month}`;
     const url = `https://data.police.uk/api/crimes-street/${category}?poly=${poly}&date=${date}`;
-    console.log(url);
+    this.fetchIncidents(url);
+    console.log(`Query was ${url}`);
   });
 
   // when category changes, update current category
