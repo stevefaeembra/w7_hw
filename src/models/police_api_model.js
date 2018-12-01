@@ -57,12 +57,36 @@ PoliceApiModel.prototype.findBoundary = function () {
       this.data.boundary = info;
       console.dir("got boundary!");
       console.dir(this.getBoundaryWKT());
+
       PubSub.publish("PoliceApiModel:have_boundary", this.data.boundary);
       Promise.resolve(info);
     });
   });
 };
 
+PoliceApiModel.prototype.getBoundaryGeoJSON = function () {
+  // get GeoJSON for boundary
+  const array = this.data.boundary.map((point) => {
+    return [point.longitude, point.latitude];
+  });
+  console.dir(array);
+  const geoJson = {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Line",
+          "coordinates": [array]
+        },
+        "properties": {
+        }
+      }
+    ]
+  };
+  console.dir(JSON.stringify(geoJson));
+  PubSub.publish("PoliceApiModel:got-geojson", JSON.stringify(geoJson));
+};
 
 PoliceApiModel.prototype.getBoundaryWKT = function () {
   // for debugging. This returns WKT (well known text)
@@ -117,7 +141,7 @@ PoliceApiModel.prototype.fetchIncidents = function (url) {
   return new Promise( (resolve, reject) => {
     req.get().then((info) => {
       this.data.incidents = info; // array of incidents
-      console.dir("got ${info.length} incidents");
+      console.dir(`got ${info.length} incidents`);
       PubSub.publish("PoliceApiModel:have_incidents", this.data.incidents);
       Promise.resolve(info);
     });
@@ -156,6 +180,8 @@ PoliceApiModel.prototype.bindEvents = function () {
   // when we have a boundary, we can fetch incidents
 
   PubSub.subscribe("PoliceApiModel:have_boundary", (event) => {
+    // convert to WKT
+    this.getBoundaryGeoJSON();
     PubSub.signForDelivery(this,event);
     const category = this.data.category;
     const poly = this.getPolyURL();
