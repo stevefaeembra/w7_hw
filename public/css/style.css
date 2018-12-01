@@ -21,8 +21,12 @@ label {
   flex: 1;
 }
 
-input, select {
+input, select, #coordinates, #acknowledgements {
   flex: 3;
+}
+
+#acknowledgements {
+  font-size: .8rem;
 }
 
 #neighbourhood, #coordinates, header {

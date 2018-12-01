@@ -15,6 +15,21 @@
       <label for="postcode">Postcode</label>
       <input type="text" id="postcode" placeholder="EH8 7HQ">
     </form>
+    <form action="#">
+      <label for="coordinates">Coordinates</label>
+      <div id="coordinates">
+        <!-- coordinates info injected here -->
+      </div>
+    </form>
+    <form>
+      <label for="acknowledgements">Copyright</label>
+      <div id="acknowledgements">
+        <p>Using API from <a href="https://www.getthedata.com/open-postcode-geo-api">www.getthedata.com</a>.
+        Contains OS data (c) Crown copyright and database right 2016.
+		    Contains Royal Mail data (c) Royal Mail copyright and database right 2016".
+		    Contains National Statistics data (c) Crown copyright and database right 2016.</p>
+      </div>
+    </form>
     <form action="#" id="form-category">
       <label for="incident-type">Incident Type</label>
       <select id="incident-type">
@@ -29,9 +44,6 @@
   <content>
     <div id="neighbourhood">
       <!-- neighbourhood info injected here -->
-    </div>
-    <div id="coordinates">
-      <!-- coordinates info injected here -->
     </div>
     <div id="incidents">
       <!-- incident info goes here -->
