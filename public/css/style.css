@@ -10,6 +10,8 @@ html {
 
 body {
   background-color: wheat;
+  width: 500px;
+  margin: 0 auto;
 }
 
 form, #header {
@@ -71,4 +73,13 @@ header {
 .incident-card--category {
   font-weight: bold;
   font-size: 1.2rem;
+}
+
+::placeholder {
+  color: rgba(0,0,0,.3);
+}
+
+.center {
+  margin: 0 auto;
+  padding: 1rem;
 }

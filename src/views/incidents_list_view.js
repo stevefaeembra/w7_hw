@@ -17,7 +17,7 @@ IncidentsListView.prototype.bindEvents = function () {
     // when the data is ready
     this.element.innerHTML = "";
     const spinner = document.createElement("i");
-    spinner.className = "fa fa-refresh fa-spin";
+    spinner.className = "fa fa-refresh fa-spin center";
     spinner.style="font-size:48px;color:red"
     this.element.appendChild(spinner);
   });
