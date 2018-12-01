@@ -142,8 +142,6 @@ Models and Views
   - call findBoundary(neighbourhood)
   - call findIncidents(boundary, timePeriod, category)
 
-
-
 **[View] NeighbourhoodView**
 - Shows info on selected neighbourhood once this is known
   - forceName
