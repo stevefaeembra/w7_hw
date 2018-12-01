@@ -19,7 +19,7 @@ NeighbourhoodMapView.prototype.bindEvents = function () {
     var location = event.detail;
     var lat = location.latitude;
     var lon = location.longitude;
-    this.map.setView([lat, lon], 13);
+    this.map.setView([lat, lon], 12);
   });
   // got geojson for boundary
   PubSub.subscribe("PoliceApiModel:got-geojson",(event) => {
