@@ -59,6 +59,19 @@ PoliceApiModel.prototype.bindEvents = function () {
     })
   });
 
+  // when month changes, update the date info
+  PubSub.subscribe("MonthInputView:month-changed", (event) => {
+    PubSub.signForDelivery(this,event);
+    const yearMonth = event.detail;
+    const year = parseInt(yearMonth.substring(0,4));
+    const month = parseInt(yearMonth.substring(5,7));
+    this.data.timePeriod = {
+      "year": year,
+      "month": month
+    };
+    console.dir(this.data);
+  })
+
 };
 
 module.exports = PoliceApiModel;
