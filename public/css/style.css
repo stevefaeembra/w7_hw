@@ -12,9 +12,41 @@ body {
   background-color: wheat;
 }
 
+form {
+  display: flex;
+  margin: 0.5rem 0;
+}
+
+label {
+  flex: 1;
+}
+
+input, select {
+  flex: 3;
+}
+
+#neighbourhood, #coordinates, header {
+  margin: 1rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  border: 2px solid black;
+}
+
+#incidents {
+  margin: 1rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  border: 2px solid black;
+}
+
 .incident-card {
   margin: 1rem 0;
   padding: 1rem;
   border-radius: 1rem;
   border: 1px dotted black;
+}
+
+.incident-card--category {
+  font-weight: bold;
+  font-size: 1.2rem;
 }
