@@ -26,10 +26,7 @@ input, select,
 #coordinates, #acknowledgements,
 #title {
   flex: 3;
-}
-
-#title {
-  font-size: 2rem;
+  font-size: 1rem;
 }
 
 img {
@@ -52,6 +49,10 @@ img {
   border: 2px solid black;
 }
 
+header {
+  background: whiteSmoke;
+}
+
 #incidents {
   margin: 1rem;
   padding: 1rem;
@@ -64,6 +65,7 @@ img {
   padding: 1rem;
   border-radius: 1rem;
   border: 1px dotted black;
+  background-color: whiteSmoke;
 }
 
 .incident-card--category {

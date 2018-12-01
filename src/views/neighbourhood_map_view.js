@@ -23,7 +23,6 @@ NeighbourhoodMapView.prototype.bindEvents = function () {
   });
   // got geojson for boundary
   PubSub.subscribe("PoliceApiModel:got-geojson",(event) => {
-    debugger;
     let boundary = event.detail;
     L.geoJSON([boundary], {
   		style: function (feature) {
