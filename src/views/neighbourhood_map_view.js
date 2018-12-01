@@ -14,7 +14,13 @@ const NeighbourhoodMapView = function (querySelection) {
 }
 
 NeighbourhoodMapView.prototype.bindEvents = function () {
-  //
+  // listen for a location and center the map at (lat, lon)
+  PubSub.subscribe("PostcodeAPIModel:got_postcode_location", (event) => {
+    var location = event.detail;
+    var lat = location.latitude;
+    var lon = location.longitude;
+    this.map.setView([lat, lon], 13);
+  })
 };
 
 module.exports = NeighbourhoodMapView;
