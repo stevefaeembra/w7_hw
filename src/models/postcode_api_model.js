@@ -6,6 +6,7 @@ const PostcodeAPIModel = function () {
 };
 
 PostcodeAPIModel.prototype.lookUpLocation = function (postcode) {
+  // get {latitude,longitude} from a postcode
   const url = `http://api.getthedata.com/postcode/${postcode}`;
   const req = new RequestHelper(url);
   const result = req.get().then((response) => {

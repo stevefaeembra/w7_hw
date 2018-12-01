@@ -28,22 +28,37 @@ PoliceApiModel.prototype.findCategories = function () {
   return result; // a promise
 }
 
+PoliceApiModel.prototype.findNeighbourHood = function (location) {
+    // given a location {latitude, longitude}
+    // return the neighbourhood info
+    console.log("In the findNeighbourHood");
+    const req= new RequestHelper(`https://data.police.uk/api/locate-neighbourhood?q=${location.latitude},${location.longitude}`);
+    req.get().then((data) => {
+      this.neighbourhood = data;
+      PubSub.publish("PoliceApiModel:have_neighbourhood", data);
+    });
+};
+
 PoliceApiModel.prototype.bindEvents = function () {
-  //
+
+  // get categories, then publish list
   this.findCategories().then(
     (categories) => {
       PubSub.publish("PoliceApiModel:have_categories",categories);
     }
   );
+
+  // when postcode changes, find the new location
   PubSub.subscribe("PostcodeAPIModel:got_postcode_location", (location) => {
     PubSub.signForDelivery(this,event);
     const latitude = event.detail['latitude'];
     const longitude = event.detail['longitude'];
-    const req= new RequestHelper(`https://data.police.uk/api/locate-neighbourhood?q=${latitude},${longitude}`);
-    req.get().then((data) => {
-      console.log(data);
+    this.findNeighbourHood({
+      "latitude": latitude,
+      "longitude": longitude
     })
-  })
+  });
+
 };
 
 module.exports = PoliceApiModel;

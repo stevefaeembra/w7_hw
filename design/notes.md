@@ -134,7 +134,7 @@ Models and Views
 - **findIncidents(boundary, timeperiod, category)**
   - publish to **PoliceApiModel:have_incidents**
 - subscribes to **PostcodeAPIModel:got_postcode_location**
-  - call findNeighbourHood(location)
+  - call findNeighbourHood(location) [DONE]
   - call findBoundary(neighbourhood)
   - call findIncidents(boundary, timePeriod, category)
 - subscribes to **IncidentTypeSelectView:change_category**
