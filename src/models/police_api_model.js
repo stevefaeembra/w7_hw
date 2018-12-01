@@ -21,7 +21,7 @@ PoliceApiModel.prototype.findCategories = function () {
   const result = req.get().then(
     (info) => {
       const categories = info.map((item) => {
-        return item.name;
+        return item;
       });
       return Promise.resolve(categories);
     }

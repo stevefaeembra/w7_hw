@@ -7,10 +7,10 @@ const IncidentTypeSelectView = function (querySelection) {
 IncidentTypeSelectView.prototype.populatePullDown = function(categoryList) {
   // clear out and recreate list of options from array of categories
   this.element.innerHTML = '';
-  categoryList.forEach((categoryName) => {
+  categoryList.forEach((category) => {
     const option = document.createElement("option");
-    option.textContent = categoryName;
-    option.setAttribute('value', categoryName);
+    option.textContent = category.name;
+    option.setAttribute('value', category.url);
     this.element.appendChild(option);
   });
 };
