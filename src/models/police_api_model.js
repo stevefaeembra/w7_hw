@@ -75,6 +75,37 @@ PoliceApiModel.prototype.getBoundaryWKT = function () {
   return wkt;
 };
 
+PoliceApiModel.prototype.getPolyURL = function () {
+
+  // returns boundary in the format needed by API url
+  // y1,x1:y2,x2:....:yN,xN
+  // got a 414:URL too long. So we do a simple bounding
+  // box instead
+
+  let maxX = -180.00;
+  let minX = 180.00;
+  let maxY = -90.0;
+  let minY = 90.0;
+
+  let str = '';
+  const poly = this.data.boundary;
+  poly.forEach((point) => {
+    let lat = point.latitude;
+    let lon = point.longitude;
+    if (lat>maxY) maxY=lat;
+    if (lat<minY) minY=lat;
+    if (lon>maxX) maxX=lon;
+    if (lon<minX) minX=lon;
+  });
+  const nw = `${maxY},${minX}`;
+  const ne = `${maxY},${maxX}`;
+  const se = `${minY},${maxX}`;
+  const sw = `${minY},${minY}`;
+  debugger;
+  return `${nw}:${ne}:${se}:${sw}:${nw}`;
+};
+
+
 PoliceApiModel.prototype.bindEvents = function () {
 
   // get categories, then publish list
@@ -108,9 +139,11 @@ PoliceApiModel.prototype.bindEvents = function () {
 
   PubSub.subscribe("PoliceApiModel:have_boundary", (event) => {
     PubSub.signForDelivery(this,event);
-    const category = this.data
-    const url = `https://data.police.uk/api/crimes-street/${category}?poly=${poly}&date=${month}`;
-
+    const category = this.data.category;
+    const poly = this.getPolyURL();
+    const date = `${this.data.timePeriod.year}-${this.data.timePeriod.month}`;
+    const url = `https://data.police.uk/api/crimes-street/${category}?poly=${poly}&date=${date}`;
+    console.log(url);
   });
 
   // when category changes, update current category
