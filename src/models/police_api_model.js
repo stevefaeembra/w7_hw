@@ -101,10 +101,14 @@ PoliceApiModel.prototype.getPolyURL = function () {
   const ne = `${maxY},${maxX}`;
   const se = `${minY},${maxX}`;
   const sw = `${minY},${minY}`;
-  debugger;
   return `${nw}:${ne}:${se}:${sw}:${nw}`;
 };
 
+PoliceApiModel.prototype.fetchIncidents = function (url) {
+  // we have a category, a boundary and a date
+  // so fetch incidents .
+
+};
 
 PoliceApiModel.prototype.bindEvents = function () {
 
