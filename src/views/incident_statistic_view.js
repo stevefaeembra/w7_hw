@@ -1,0 +1,22 @@
+// represents a statistic e.g. robbery was 12% of total
+
+const IncidentStatisticView = function () {
+
+};
+
+IncidentStatisticView.prototype.render = function (incidentStatistic) {
+  // incidentStatistic is simple object {"category":"all_crime","percentage","100"};
+  const statisticDiv = document.createElement("div");
+  statisticDiv.className = "statistic-category";
+  const categoryDiv = document.createElement("div");
+  categoryDiv.className = "statistic-category--category";
+  categoryDiv.textContent = incidentStatistic.category;
+  const percentageDiv = document.createElement("div");
+  percentageDiv.className = "statistic-category--percentage";
+  percentageDiv.textContent = incidentStatistic.percentage;
+  statisticDiv.appendChild(categoryDiv);
+  statisticDiv.appendChild(percentageDiv);
+  return statisticDiv;
+};
+
+module.exports = IncidentStatisticView;

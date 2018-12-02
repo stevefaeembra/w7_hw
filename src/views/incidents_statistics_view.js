@@ -1,4 +1,5 @@
 const PubSub = require("../helpers/pub_sub.js");
+const IncidentStatisticView = require("./incident_statistic_view");
 
 const IncidentsStatisticsView = function (querySelection) {
   this.element = document.querySelector(querySelection);
@@ -34,7 +35,11 @@ IncidentsStatisticsView.prototype.getPercentages = function (incidents) {
     }
   });
   // now have an array of objects with category name and percentages
-
+  // render as a list
+  categoryPercentages.forEach((categoryInfo) => {
+    const divForStatistic = new IncidentStatisticView().render(categoryInfo);
+    this.element.appendChild(divForStatistic);
+  })
   console.dir(categoryPercentages);
 };
 
