@@ -11,6 +11,9 @@ IncidentStatisticView.prototype.render = function (incidentStatistic) {
   const categoryDiv = document.createElement("div");
   categoryDiv.className = "statistic-category--category";
   categoryDiv.textContent = incidentStatistic.category;
+  const countDiv = document.createElement("div");
+  countDiv.className = "statistic-category--count";
+  countDiv.textContent = `${ incidentStatistic.percentage.toFixed(1) }%`;
   const percentageDiv = document.createElement("div");
   percentageDiv.className = "statistic-category--percentage";
   //percentageDiv.textContent = incidentStatistic.percentage;
@@ -19,6 +22,7 @@ IncidentStatisticView.prototype.render = function (incidentStatistic) {
   percentageBarDiv.style= `width: ${incidentStatistic.percentage}%;`;
   percentageDiv.appendChild(percentageBarDiv);
   statisticDiv.appendChild(categoryDiv);
+  statisticDiv.appendChild(countDiv);
   statisticDiv.appendChild(percentageDiv);
   return statisticDiv;
 };
