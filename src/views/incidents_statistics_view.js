@@ -35,8 +35,18 @@ IncidentsStatisticsView.prototype.getPercentages = function (incidents) {
     }
   });
 
-  // add in an 'all-crimes' at 100%
+  // add in an 'all-crimes' at 100%, insert at start of list
   categoryPercentages.unshift({"category":"all-crimes", "percentage": 100.0});
+
+  // now, sort by percentage descending
+  categoryPercentages.sort((a,b) => {
+    if (a.percentage<b.percentage) {
+      return 1;
+    }
+    else {
+      return -1;
+    }
+  })
 
   // now have an array of objects with category name and percentages
   // render as a list
