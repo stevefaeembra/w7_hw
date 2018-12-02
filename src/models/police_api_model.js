@@ -64,6 +64,30 @@ PoliceApiModel.prototype.findBoundary = function () {
   });
 };
 
+PoliceApiModel.prototype.getIncidentsGeoJson = function () {
+  // get GeoJSON for the incident locations
+  let result = {
+    "type": "FeatureCollection",
+    "features": []
+  };
+  this.data.incidents.forEach((incident) => {
+    const feature = {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            incident.location.longitude,
+            incident.location.latitude
+          ]
+        },
+        "properties": {
+        }
+    };
+    result.features.push(feature);
+  });
+  return result;
+};
+
 PoliceApiModel.prototype.getBoundaryGeoJSON = function () {
   // get GeoJSON for boundary
   const array = this.data.boundary.map((point) => {
@@ -129,6 +153,8 @@ PoliceApiModel.prototype.getPolyURL = function () {
   const sw = `${minY},${minY}`;
   return `${nw}:${ne}:${se}:${sw}:${nw}`;
 };
+
+
 
 PoliceApiModel.prototype.fetchIncidents = function (url) {
   // we have a category, a boundary and a date
@@ -198,7 +224,7 @@ PoliceApiModel.prototype.bindEvents = function () {
     const newCategory = event.detail;
     this.data.category = newCategory;
     console.dir(this.data);
-  })
+  });
 
   // when month changes, update the date info
 
@@ -212,7 +238,16 @@ PoliceApiModel.prototype.bindEvents = function () {
       "month": month
     };
     console.dir(this.data);
-  })
+  });
+
+  // when we have incidents, we can generate the geoJson for
+  // the incidents
+
+  PubSub.subscribe("PoliceApiModel:have_incidents", (event) => {
+    debugger;
+    const geojson = this.getIncidentsGeoJson();
+    console.dir(geojson);
+  }); 
 
 };
 
