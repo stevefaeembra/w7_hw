@@ -8,6 +8,7 @@ const IncidentsStatisticsView = function (querySelection) {
 IncidentsStatisticsView.prototype.bindEvents = function () {
   PubSub.subscribe("PoliceApiModel:have_incidents",(event) => {
     PubSub.signForDelivery(this,event);
+    this.element.innerHTML = "";
     const incidents = event.detail;
     const counts = this.getPercentages(incidents);
   });
@@ -33,6 +34,10 @@ IncidentsStatisticsView.prototype.getPercentages = function (incidents) {
       "percentage": parseFloat((counts[category])/parseFloat(total))*100.0
     }
   });
+
+  // add in an 'all-crimes' at 100%
+  categoryPercentages.unshift({"category":"all-crimes", "percentage": 100.0});
+
   // now have an array of objects with category name and percentages
   // render as a list
   categoryPercentages.forEach((categoryInfo) => {
