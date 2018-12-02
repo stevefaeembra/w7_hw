@@ -150,7 +150,7 @@ PoliceApiModel.prototype.getPolyURL = function () {
   const nw = `${maxY},${minX}`;
   const ne = `${maxY},${maxX}`;
   const se = `${minY},${maxX}`;
-  const sw = `${minY},${minY}`;
+  const sw = `${minY},${minX}`;
   return `${nw}:${ne}:${se}:${sw}:${nw}`;
 };
 
@@ -244,10 +244,10 @@ PoliceApiModel.prototype.bindEvents = function () {
   // the incidents
 
   PubSub.subscribe("PoliceApiModel:have_incidents", (event) => {
-    debugger;
+    PubSub.signForDelivery(this,event);
     const geojson = this.getIncidentsGeoJson();
-    console.dir(geojson);
-  }); 
+    PubSub.publish("PoliceApiModel:have_incidents_geojson",geojson);
+  });
 
 };
 

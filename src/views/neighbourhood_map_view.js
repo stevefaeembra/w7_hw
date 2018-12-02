@@ -21,15 +21,28 @@ NeighbourhoodMapView.prototype.bindEvents = function () {
     var lon = location.longitude;
     this.map.setView([lat, lon], 12);
   });
+
   // got geojson for boundary
+
   PubSub.subscribe("PoliceApiModel:got-geojson",(event) => {
-    let boundary = event.detail; 
+    let boundary = event.detail;
     L.geoJSON([boundary], {
   		style: function (feature) {
   			return feature.properties && feature.properties.style;
   		}
 		}).addTo(this.map);
-	})
+	});
+
+  // got geojson for incidents
+
+  PubSub.subscribe("PoliceApiModel:have_incidents_geojson", (event) => {
+    let incidentGeojson = event.detail;
+    L.geoJSON([incidentGeojson], {
+  		style: function (feature) {
+  			return feature.properties && feature.properties.style;
+  		}
+		}).addTo(this.map);
+  })
 };
 
 module.exports = NeighbourhoodMapView;
