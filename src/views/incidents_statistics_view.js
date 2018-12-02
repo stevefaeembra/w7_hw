@@ -25,7 +25,17 @@ IncidentsStatisticsView.prototype.getPercentages = function (incidents) {
     }
   });
   console.log("Found", total, "incidents");
-  console.dir(counts);
+  // convert to percentages 0..100
+  let categoryArray = [...Object.keys(counts)];
+  const categoryPercentages = categoryArray.map((category) => {
+    return {
+      "category": category,
+      "percentage": parseFloat((counts[category])/parseFloat(total))*100.0
+    }
+  });
+  // now have an array of objects with category name and percentages
+
+  console.dir(categoryPercentages);
 };
 
 module.exports = IncidentsStatisticsView;
