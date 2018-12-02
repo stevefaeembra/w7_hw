@@ -5,7 +5,10 @@ const IncidentSummaryView = function (querySelection) {
 };
 
 IncidentSummaryView.prototype.bindEvents = function () {
-
+  PubSub.subscribe("PoliceApiModel:starting_lookup", (event) => {
+    // add a spinner...
+    
+  })
 };
 
 IncidentSummaryView.prototype.render = function (incident) {
