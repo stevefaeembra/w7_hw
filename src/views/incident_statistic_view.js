@@ -13,7 +13,11 @@ IncidentStatisticView.prototype.render = function (incidentStatistic) {
   categoryDiv.textContent = incidentStatistic.category;
   const percentageDiv = document.createElement("div");
   percentageDiv.className = "statistic-category--percentage";
-  percentageDiv.textContent = incidentStatistic.percentage;
+  //percentageDiv.textContent = incidentStatistic.percentage;
+  const percentageBarDiv = document.createElement("div");
+  percentageBarDiv.className = "statistic-category--percentagebar";
+  percentageBarDiv.style= `width: ${incidentStatistic.percentage}%;`;
+  percentageDiv.appendChild(percentageBarDiv);
   statisticDiv.appendChild(categoryDiv);
   statisticDiv.appendChild(percentageDiv);
   return statisticDiv;
