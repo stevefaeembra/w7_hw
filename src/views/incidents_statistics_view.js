@@ -16,7 +16,6 @@ IncidentsStatisticsView.prototype.bindEvents = function () {
 IncidentsStatisticsView.prototype.getPercentages = function (incidents) {
   let counts = {};
   let total = 0;
-  debugger;
   incidents.forEach((incident) => {
     total += 1;
     if (incident.category in counts) {
