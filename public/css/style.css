@@ -125,3 +125,9 @@ header {
   font-weight: bold;
   color: maroon;
 }
+
+.statistic-category--total {
+  width: 100%;
+  font-size: 1.4rem;
+  margin-bottom: .5rem;
+}

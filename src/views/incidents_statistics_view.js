@@ -48,6 +48,12 @@ IncidentsStatisticsView.prototype.getPercentages = function (incidents) {
     }
   })
 
+  // add header showing the number of incidents
+  const totalCountDiv = document.createElement("div");
+  totalCountDiv.className = "statistic-category--total";
+  totalCountDiv.textContent = `Found ${total} incidents`;
+  this.element.appendChild(totalCountDiv);
+
   // now have an array of objects with category name and percentages
   // render as a list
   categoryPercentages.forEach((categoryInfo) => {
