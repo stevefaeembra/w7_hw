@@ -16,15 +16,25 @@ const NeighbourhoodMapView = function (querySelection) {
 NeighbourhoodMapView.prototype.bindEvents = function () {
   // listen for a location and center the map at (lat, lon)
   PubSub.subscribe("PostcodeAPIModel:got_postcode_location", (event) => {
+
+
     var location = event.detail;
     var lat = location.latitude;
     var lon = location.longitude;
     this.map.setView([lat, lon], 12);
+
+    // clear map layers as we have a new locations
+    // not working at present
+    // this.map.eachLayer(function (layer) {
+    //   debugger;
+    //   this.map.removeLayer(layer);
+    // });
   });
 
   // got geojson for boundary
 
   PubSub.subscribe("PoliceApiModel:got-geojson",(event) => {
+    // add boundary polygon
     let boundary = event.detail;
     L.geoJSON([boundary], {
   		style: function (feature) {
@@ -37,10 +47,21 @@ NeighbourhoodMapView.prototype.bindEvents = function () {
 
   PubSub.subscribe("PoliceApiModel:have_incidents_geojson", (event) => {
     let incidentGeojson = event.detail;
+    let markerStyle = {
+      radius: 2,
+      fillColor: "#000",
+      color: "#000",
+      weight: 1,
+      opacity: 1,
+      fillOpacity: 0.8
+    };
     L.geoJSON([incidentGeojson], {
-  		style: function (feature) {
-  			return feature.properties && feature.properties.style;
-  		}
+      style: function (feature) {
+			     return feature.properties && feature.properties.style;
+		  },
+      pointToLayer: function (feature, latlng) {
+        return L.circleMarker(latlng, markerStyle);
+      }
 		}).addTo(this.map);
   })
 };
